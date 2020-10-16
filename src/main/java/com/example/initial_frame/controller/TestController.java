@@ -5,7 +5,9 @@ import com.example.initial_frame.common.exception.SDCException;
 import com.example.initial_frame.common.restful.ResponseData;
 import com.example.initial_frame.common.utils.ResultResponseUtil;
 import com.example.initial_frame.common.validated.*;
-import lombok.extern.slf4j.Slf4j;
+import com.example.initial_frame.service.DBTestSeivice;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,12 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/test")
-@Slf4j
 public class TestController {
+    private static Logger logger= Logger.getLogger(TestController.class); // 获取logger实例
+    @Autowired
+    DBTestSeivice dbTestSeivice;
+
 
     @RequestMapping(value = "test", method = {RequestMethod.POST})
     public ResponseData test(@Validated(Insert.class) @RequestBody TestBean testBean, BindingResult result) {
-        log.info("测试SpringMVC 前后交互参数类型校验问题");
+        logger.info("测试SpringMVC 前后交互参数类型校验问题");
         ResultResponseUtil.check(result);
         return ResponseData.SUCCESS(null);
     }
@@ -29,9 +34,14 @@ public class TestController {
 
     @RequestMapping(value = "exceptionTest", method = {RequestMethod.POST})
     public ResponseData exceptionTest() {
-        log.info("测试异常除理");
+        logger.info("测试异常处理");
         throw new SDCException("自定义异常");
     }
 
+    @RequestMapping(value = "dbTest", method = {RequestMethod.POST})
+    public ResponseData dbTest(String msg) {
+        dbTestSeivice.insertData(msg);
+        return ResponseData.SUCCESS(null);
+    }
 
 }
