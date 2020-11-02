@@ -30,7 +30,7 @@ public class TestController {
     }
 
 
-    @RequestMapping(value = "exceptionTest", method = {RequestMethod.POST})
+    @RequestMapping(value = "exceptionTest", method = {RequestMethod.GET})
     public ResponseData exceptionTest() {
         throw new SDCException("自定义异常");
     }
