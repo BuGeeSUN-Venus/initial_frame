@@ -25,7 +25,6 @@ public class TestController {
 
     @RequestMapping(value = "test", method = {RequestMethod.POST})
     public ResponseData test(@Validated(Insert.class) @RequestBody TestBean testBean, BindingResult result) {
-
         ResultResponseUtil.check(result);
         return ResponseData.SUCCESS(null);
     }
