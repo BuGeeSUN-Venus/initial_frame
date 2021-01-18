@@ -6,3 +6,7 @@
  * RESTful 风格
  * 日志slf4j-log4j12  如果嫌弃控制台没有颜色 IDEA可以使用GrepConsole插件
  * JPA
+ * 权限
+ * ES
+ * Kafka
+ * redis

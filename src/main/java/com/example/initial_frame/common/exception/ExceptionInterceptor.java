@@ -46,7 +46,8 @@ public class ExceptionInterceptor {
             return ResponseData.FAILED(msg,null);
         }catch (Throwable e){
             msg= e.getMessage();
-            return ResponseData.FAILED(msg,null);
+            log.error(msg);
+            throw e ;
         }
     }
 
