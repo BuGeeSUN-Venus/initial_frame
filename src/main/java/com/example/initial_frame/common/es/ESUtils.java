@@ -3,8 +3,6 @@ package com.example.initial_frame.common.es;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.util.EntityUtils;
-import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
-import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.update.UpdateRequest;
@@ -13,7 +11,6 @@ import org.elasticsearch.client.Response;
 import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 
@@ -48,7 +45,7 @@ public class ESUtils {
     }
 
     /**
-     * @Description TODO-SDC 创建索引 （类似分词器，数据格式等信息 自定义强，不可以一概而论 故一般采取后期按需修改）（一般使用下，不用自己手动创建索引，插入数据默认生成）
+     * @Description TODO-SDC 创建索引 （类似分词器，数据格式等信息 自定义强，不可以一概而论 集中放在创建索引文件下)
      * @Author  SunDC
      * @Date   2021/1/8 下午5:02
      * @Param isDel 索引重复是否删除重建
@@ -56,35 +53,8 @@ public class ESUtils {
      * @Exception
      *
      */
-    public static void createIndex(String indexName ,Boolean isDel) throws IOException {
-        RestHighLevelClient client = InitClient.getClient();
-        indexName = indexName.toLowerCase();
-        if(checkIndexExist(indexName)) {
-            //删除重建
-            if (!isDel) {
-                log.info("索引——>{}  已经存在",indexName);
-               return;
-            }
-            client.indices().delete(new DeleteIndexRequest(indexName), RequestOptions.DEFAULT);
-        }
-        try {
-            CreateIndexRequest createIndexRequest = new CreateIndexRequest(indexName);
-            //设置， shards 切片为 5 ，设置副本为 1
-            Settings.Builder put = Settings.builder().put("index.number_of_shards", 5)
-                    .put("index.number_of_replicas", 1);
-            createIndexRequest.settings(put);
-
-            CreateIndexResponse createIndexResponse = client.indices().create(createIndexRequest, RequestOptions.DEFAULT);
-            boolean acknowledged = createIndexResponse.isAcknowledged();
-            if (acknowledged) {
-                log.info("索引——>{}  创建成功",indexName);
-            } else {
-                log.info("索引——>{}  创建失败",indexName);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        client.close();
+    public static void createIndex(String indexName, Boolean isDel) throws IOException {
+        CreateIndex.allot(indexName,isDel);
     }
 
     /**
