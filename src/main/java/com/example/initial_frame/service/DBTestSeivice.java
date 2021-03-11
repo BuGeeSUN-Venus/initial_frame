@@ -1,6 +1,6 @@
 package com.example.initial_frame.service;
 
-import com.example.initial_frame.bean.EnticyDemo;
+import com.example.initial_frame.bean.enticy.EnticyDemo;
 import com.example.initial_frame.dao.EnticyDemoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

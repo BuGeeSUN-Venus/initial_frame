@@ -1,4 +1,4 @@
-package com.example.initial_frame.bean;
+package com.example.initial_frame.bean.enticy;
 
 import lombok.Data;
 

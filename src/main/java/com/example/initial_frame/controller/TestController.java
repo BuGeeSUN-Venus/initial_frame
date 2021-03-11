@@ -1,6 +1,6 @@
 package com.example.initial_frame.controller;
 
-import com.example.initial_frame.bean.TestBean;
+import com.example.initial_frame.bean.test.TestBean;
 import com.example.initial_frame.common.exception.SDCException;
 import com.example.initial_frame.common.restful.ResponseData;
 import com.example.initial_frame.common.utils.ResultResponseUtil;
@@ -40,6 +40,7 @@ public class TestController {
         return ResponseData.SUCCESS(null);
     }
 
+    //获取环境属性
     public static void main(String[] args) {
         System.getProperty("java.library.path");
     }
